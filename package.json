@@ -1,0 +1,19 @@
+{
+  "name": "discord_yui",
+  "version": "1.0.0",
+  "description": "Automatic mine/chop/fish for yui bot",
+  "main": "script.js",
+  "scripts": {
+    "start": "electron .",
+    "rebuild": "sudo npm rebuild --runtime=electron --target=10.1.3 --disturl=https://atom.io/download/atom-shell --abi=64"
+  },
+  "author": "Ariel Volovik",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "discord.js": "^12.3.1",
+    "electron": "^10.1.3",
+    "gkm": "^0.2.0",
+    "robotjs": "^0.6.0"
+  }
+}
