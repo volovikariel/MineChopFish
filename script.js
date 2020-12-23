@@ -20,14 +20,10 @@ let contextMenu = null;
 app.whenReady().then(() => {
     tray = new Tray(path.join(__dirname, './aww.png')); 
     tray.setToolTip('Yui chan!')
-    tray.on('click', () => {
-        console.log("TRAY CLICKED!");
-    });
     contextMenu = Menu.buildFromTemplate([ {
         label: 'running',
         type: 'checkbox',
         checked: false, 
-        // Runs on click
         click() { 
             handleChildren(true); 
             // Hide the tray because the key typing could bug out with spamming it on and off 
@@ -60,7 +56,6 @@ function handleChildren(clicked = false) {
            content: "Toggled typing"
        });
 
-       console.info(`Now ${(contextMenu.items[0].checked) ? "checked" : "unchecked"}`);
        // If children already exist, kill
        if(children.length > 0) {
            killChildren();
@@ -68,11 +63,7 @@ function handleChildren(clicked = false) {
 
        if(contextMenu.items[0].checked) {
            // Add a new child if it's checked 
-           console.info(`Creating new child`);
            let child = cp.fork(path.join(__dirname, 'worker.js'));
-           child.on('exit', () => {
-              console.log('Child terminated');
-           });
            children.push(child);
        }
        else {
@@ -85,7 +76,6 @@ function handleChildren(clicked = false) {
 
 function killChildren() {
       for(let i = 0; i < children.length; i++) {
-          console.info(`;;;;Killing child #${i};;;;`);
           children.pop().kill("SIGHUP");
       }
 }
